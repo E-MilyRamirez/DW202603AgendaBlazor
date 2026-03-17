@@ -1,4 +1,6 @@
 using Microsoft.Data.SqlClient;
+using System.Data;
+using System.Reflection;
 
 namespace AgendaWeb.Data
 {
