@@ -2,10 +2,23 @@
 
 <h3>Contactos</h3>
 
+<NavLink class="btn btn-primary mb-3" href="contactos/nuevo">
+    Crear Nuevo Contacto
+</NavLink>
+
+@if (CargandoDatos)
+{
+    <div>   
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+        Cargando Contactos...   
+    </div>
+}
 @if (ListaDeContactos.Count == 0)
 {
     <div class="alert alert-info mt-3">
-        No Hay Contactos
+        Aun No Hay Contactos
     </div>
 }
 else
@@ -18,6 +31,7 @@ else
                  <th>Nombre</th>
                  <th>Telefono</th>
                  <th>Email</th>
+                 <th></th>
              </tr>
          </thead>
          <tbody>
@@ -28,6 +42,10 @@ else
                         <td>@contacto.Nombre</td>
                         <td>@contacto.Telefono</td>
                         <td>@contacto.Email</td>
+                        <td>
+                 <NavLink class="btn btn-sm btn-secondary me-1">Editar</NavLink>
+                 <button class="btn btn-sm btn-danger">Eliminar</button>
+                        </td>
                     </tr>
                 }
             </tbody>
