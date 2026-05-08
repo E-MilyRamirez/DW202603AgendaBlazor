@@ -23,7 +23,8 @@ namespace AgendaWeb
             builder.Services.AddScoped<SQLServer>(_ => new SQLServer(connectionString));
             builder.Services.AddScoped<ContactoCommand>();
             builder.Services.AddScoped<ContactoServices>();
-
+            builder.Services.AddScoped<TipoContactoCommand>();
+            builder.Services.AddScoped<TipoContactoServices>();
 
             var app = builder.Build();
 

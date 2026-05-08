@@ -10,8 +10,8 @@ namespace AgendaWeb.Data.DTOS.Contactos
        
         public string Telefono { get; set; }
 
-        
-        
+        public int TipoContactoId { get; set; }
+
         [Required(ErrorMessage = "El campo Email es requerido")]
         public string Email { get; set; }
     }

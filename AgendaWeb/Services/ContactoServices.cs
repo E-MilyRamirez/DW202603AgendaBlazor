@@ -1,4 +1,5 @@
 ﻿using AgendaWeb.Data.Commands;
+using AgendaWeb.Data.DTOS;
 using AgendaWeb.Data.DTOS.Contactos;
 using AgendaWeb.Data.Entities;
 
@@ -19,6 +20,7 @@ namespace AgendaWeb.Services
             contacto.Nombre = contactoNuevoDto.Nombre;
             contacto.Telefono = contactoNuevoDto.Telefono;
             contacto.Email = contactoNuevoDto.Email;
+            contacto.TipoContactoId = contactoNuevoDto.TipoContactoId;
 
             int registrosAfectados = await _contactoCommand.InsertarContactoAsync(contacto);
 
@@ -38,28 +40,27 @@ namespace AgendaWeb.Services
             {
                 Nombre = contactoActualizarDto.Nombre,
                 Telefono = contactoActualizarDto.Telefono,
-                Email = contactoActualizarDto.Email
+                Email = contactoActualizarDto.Email,
+                TipoContactoId = contactoActualizarDto.TipoContactoId
             };
             return await _contactoCommand.ActualizarContactoAsync(id, contacto);
         }
 
         public async Task<List<ContactoDto>> ObtenerTodosAsync()
         {
-            List<Contacto> contactos = await _contactoCommand.ObtenerTodosAsync();
+            List<ContactoDto> contactosDto = await _contactoCommand.ObtenerTodosAsync();
 
-            List<ContactoDto> contactosDto = new List<ContactoDto>();
-
-            foreach (var c in contactos)
-            {
-                ContactoDto contactoDto = new ContactoDto
-                {
-                    Id = c.Id,
-                    Nombre = c.Nombre,
-                    Telefono = c.Telefono,
-                    Email = c.Email
-                };
-                contactosDto.Add(contactoDto);
-            }
+            //foreach (var c in contactos)
+            //{
+            //    ContactoDto contactoDto = new ContactoDto
+            //    {
+            //        Id = c.Id,
+            //        Nombre = c.Nombre,
+            //        Telefono = c.Telefono,
+            //        Email = c.Email
+            //    };
+            //    contactosDto.Add(contactoDto);
+            //}
             // Usando LINQ para proyectar cada Contacto a ContactoDto
             //List<ContactoDto> contactosDto = contactos.Select(
             //    c => new ContactoDto //c conctacto y contactoDto es el nuevo objeto que se va a crear
@@ -71,6 +72,24 @@ namespace AgendaWeb.Services
             //    }).ToList();
 
             return contactosDto;
+        }
+
+        public async Task<ContactoActualizarDto> ObtenerPorIdAsync(int id)
+        {
+            ContactoDto contactoDto = await _contactoCommand.ObtenerPorIdAsync(id);
+
+            return new ContactoActualizarDto
+            {
+                Nombre = contactoDto.Nombre,
+                Telefono = contactoDto.Telefono,
+                Email = contactoDto.Email,
+                TipoContactoId = contactoDto.TipoContactoId
+            };
+        }
+
+        public async Task<List<TipoContactoDto>> ObtenerTiposContactosAsync()
+        {
+            return await _contactoCommand.ObtenerTiposContactosAsync();
         }
     }
 }

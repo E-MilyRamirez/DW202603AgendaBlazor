@@ -19,5 +19,13 @@ namespace AgendaWeb.Components.Pages
             //await Task.Delay(3000); <- esto me ayuda a esperar 3 segundos
             CargandoDatos = false;
         }
+
+        protected async Task EliminarContacto(int id)
+        {
+            await Services.EliminarContactoAsync(id);
+
+            ListaDeContactos = await Services.ObtenerTodosAsync();
+        }
+
     }
 }

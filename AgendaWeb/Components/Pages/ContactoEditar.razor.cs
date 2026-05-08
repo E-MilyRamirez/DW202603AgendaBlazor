@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace AgendaWeb.Components.Pages
 {
-    public partial class ContactoNuevo
+    public partial class ContactoEditar
     {
-        protected ContactoNuevoDto Contacto { get; set; } = new();
+        protected ContactoActualizarDto Contacto { get; set; } = new();
 
         protected bool MensajeExito { get; set; } = false;
 
@@ -18,17 +18,20 @@ namespace AgendaWeb.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            Contacto = await ContactoServices.ObtenerPorIdAsync(Id);
             TiposContactos = await ContactoServices.ObtenerTiposContactosAsync();
         }
 
         protected async Task GuardarContacto()
         {
-            await ContactoServices.InsertarAsync(Contacto);
+            await ContactoServices.ActualizarContactoAsync(Id, Contacto);
+            Navigation.NavigateTo("/contactos");
 
         }
         protected void Cancelar()
         {
             Navigation.NavigateTo("/contactos");
         }
+    [Parameter] public int Id { get; set; }
     }
 }

@@ -31,6 +31,7 @@ else
                  <th>Nombre</th>
                  <th>Telefono</th>
                  <th>Email</th>
+                 <th>Tipo</th>
                  <th></th>
              </tr>
          </thead>
@@ -42,13 +43,16 @@ else
                         <td>@contacto.Nombre</td>
                         <td>@contacto.Telefono</td>
                         <td>@contacto.Email</td>
+                        <td>@(string.IsNullOrEmpty(contacto.Descripcion) ? "Sin tipo" : contacto.Descripcion)</td>
                         <td>
-                            <NavLink class="btn btn-sm btn-outline-secondary me-1">
+                            <NavLink class="btn btn-sm btn-outline-secondary me-1"
+                                     href="@($"/contactos/editar/{contacto.Id}")">
                                 <i class="bi bi-pencil-square"></i>
-                                </NavLink>
-                 <button class="btn btn-sm btn-outline-danger">
-                                <i class="bi bi-trash3"></i>
-                 </button>
+                            </NavLink>
+                            <button class="btn btn-sm btn-outline-danger"
+                                    @onclick="() => EliminarContacto(contacto.Id)">
+                                    <i class="bi bi-trash3"></i>
+                             </button>
                         </td>
                     </tr>
                 }

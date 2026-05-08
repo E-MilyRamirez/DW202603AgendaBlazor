@@ -1,7 +1,7 @@
-﻿@page "/contactos/nuevo"
+﻿@page "/contactos/editar/{Id:int}"
+@*< El {Id:int} es para capturar el Id del contacto a editar />*@
 
-
-<h3 class="mb-4">Nuevo Contacto</h3>
+<h3 class="mb-4">Editar Contacto</h3>
 
 <EditForm Model="Contacto" OnValidSubmit="GuardarContacto">
     <DataAnnotationsValidator />
@@ -64,6 +64,6 @@
 @if (MensajeExito)
 {
     <div class="alert alert-success mt-3">
-        Contacto guardado correctamente.
+        Contacto actualizado correctamente.
     </div>
 }

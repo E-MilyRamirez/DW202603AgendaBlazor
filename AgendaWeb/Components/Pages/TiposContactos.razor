@@ -1,0 +1,57 @@
+﻿@page "/tiposcontactos"
+
+<h3>Tipos de Contactos</h3>
+
+<NavLink class="btn btn-primary mb-3" href="tiposcontactos/nuevo">
+    <i class="bi bi-person-plus-fill"></i> Crear Nuevo Tipo de Contacto
+</NavLink>
+
+@if (CargandoDatos)
+{
+    <div>
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+        Cargando Tipos de Contactos...
+    </div>
+}
+
+@if (ListaDeTiposContactos.Count == 0)
+{
+    <div class="alert alert-info mt-3">
+        Aun No Hay Tipos de Contactos
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-sm table-hover table-striped align-middle mb-0">
+            <thead class="table-dark small">
+                <tr>
+                    <th>Id</th>
+                    <th>Descripcion</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var tipocontacto in ListaDeTiposContactos)
+                {
+                    <tr>
+                        <td>@tipocontacto.Id</td>
+                        <td>@tipocontacto.Descripcion</td>
+                        <td>
+                            <NavLink class="btn btn-sm btn-outline-secondary me-1"
+                                     href="@($"/tiposcontactos/editar/{tipocontacto.Id}")">
+                                <i class="bi bi-pencil-square"></i>
+                            </NavLink>
+                            <button class="btn btn-sm btn-outline-danger"
+                                    @onclick="() => EliminarTipoContacto(tipocontacto.Id)">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

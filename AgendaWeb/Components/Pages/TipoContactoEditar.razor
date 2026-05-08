@@ -1,0 +1,40 @@
+﻿@page "/tiposcontactos/editar/{Id:int}"
+@using AgendaWeb.Data.Entities
+
+<h3 class="mb-4">Editar Tipos de Contacto</h3>
+
+<EditForm Model="TipoContacto" OnValidSubmit="GuardarTipoContacto">
+    <DataAnnotationsValidator />
+    @* <ValidationSummary /> *@
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <!-- Descripcion -->
+            <div class="mb-3">
+                <label class="form-label">Descripcion</label>
+                <InputText class="form-control"
+                           @bind-Value="TipoContacto.Descripcion" />
+                <ValidationMessage For="@(() => TipoContacto.Descripcion)" />
+            </div>
+
+        </div>
+
+        <div class="card-footer text-end">
+            <button type="submit" class="btn btn-success">
+                Guardar
+            </button>
+            <button type="button" class="btn btn-danger ms-2"
+                    @onclick="Cancelar">
+                Cancelar
+            </button>
+        </div>
+    </div>
+</EditForm>
+
+@if (MensajeExito)
+{
+    <div class="alert alert-success mt-3">
+        Tipo de contacto actualizado correctamente.
+    </div>
+}
